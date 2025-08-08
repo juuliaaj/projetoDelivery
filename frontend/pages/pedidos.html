@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pedidos - Delivery</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #c22b37, #FF6B4A);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.3s;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.8;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .search-icon,
+    .favorites-icon,
+    .cart-icon,
+    .profile-icon {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .search-icon:hover,
+    .favorites-icon:hover,
+    .cart-icon:hover,
+    .profile-icon:hover {
+      transform: scale(1.1);
+    }
+
+    .login-button {
+      background: linear-gradient(135deg, #ff6b35, #e60073);
+      padding: 10px 20px;
+      border-radius: 25px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: opacity 0.3s;
+    }
+
+    .login-button:hover {
+      opacity: 0.9;
+    }
+
+    /* CONTEÚDO */
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #2c2c2c;
+    }
+
+    h2 {
+      margin-top: 40px;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      color: #222;
+      border-left: 6px solid #ff6b35;
+      padding-left: 10px;
+    }
+
+    .pedido {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .pedido h3 {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .pedido ul {
+      list-style: disc;
+      margin-left: 20px;
+      margin-bottom: 10px;
+    }
+
+    .status {
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .status.preparo {
+      color: #e67e22;
+    }
+
+    .status.entrega {
+      color: #2980b9;
+    }
+
+    .status.concluido {
+      color: #27ae60;
+    }
+
+    .actions button {
+      margin-right: 10px;
+      background: linear-gradient(135deg, #ff6b35, #e60073);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    .actions button:hover {
+      opacity: 0.85;
+    }
+
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .header {
+        padding: 1rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+ 
+  <header class="header">
+    <div class="logo">NOME DO DELIVERY</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="cardapio.html">Cardápio</a></li>
+        <li><a href="pedidos.html">Pedidos</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+      </svg>
+      <svg class="favorites-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      </svg>
+      <svg class="cart-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.42 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+      </svg>
+      <svg class="profile-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
+      </svg>
+    </div>
+  </header>
+
+  
+  <div class="container">
+    <h1>Pedidos</h1>
+
+
+    <h2>🕐 Pedidos Pendentes</h2>
+
+    <div class="pedido">
+      <h3>Cliente: João Silva</h3>
+      <ul>
+        <li>Pizza Calabresa</li>
+        <li>Refrigerante 2L</li>
+      </ul>
+      <div class="status preparo">Status: Em preparo</div>
+      <div class="actions">
+        <button>Atualizar Status</button>
+        <button>Cancelar</button>
+      </div>
+    </div>
+
+    <div class="pedido">
+      <h3>Cliente: Ana Souza</h3>
+      <ul>
+        <li>Lasanha Bolonhesa</li>
+        <li>Suco de Laranja</li>
+      </ul>
+      <div class="status entrega">Status: Saiu para entrega</div>
+      <div class="actions">
+        <button>Atualizar Status</button>
+        <button>Cancelar</button>
+      </div>
+    </div>
+
+    
+    <h2>✅ Pedidos Concluídos</h2>
+
+    <div class="pedido">
+      <h3>Cliente: Pedro Lima</h3>
+      <ul>
+        <li>Combo Sushi</li>
+        <li>Guaraná</li>
+      </ul>
+      <div class="status concluido">Status: Entregue</div>
+      <div class="actions">
+        <button>Visualizar</button>
+      </div>
+    </div>
+
+    <div class="pedido">
+      <h3>Cliente: Camila Duarte</h3>
+      <ul>
+        <li>Pastel de Carne</li>
+        <li>Coca-Cola Lata</li>
+      </ul>
+      <div class="status concluido">Status: Entregue</div>
+      <div class="actions">
+        <button>Visualizar</button>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

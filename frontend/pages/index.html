@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        
+        .header {
+            background: linear-gradient(135deg, #c22b37, #FF6B4A);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-icon,
+        .favorites-icon,
+        .cart-icon,
+        .profile-icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .search-icon:hover,
+        .favorites-icon:hover,
+        .cart-icon:hover,
+        .profile-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #c22b37, #FF6B4A);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #FF4757;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .delivery-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-weight: 500;
+        }
+
+        
+        .features {
+            background: white;
+            padding: 4rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .feature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #c22b37, #FF6B4A);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .feature h3 {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .feature p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 4rem 2rem;
+            background: #f9f9f9;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .category-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #c22b37, #FF6B4A);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .category-card h3 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+       
+        .featured-dishes {
+            padding: 4rem 2rem;
+        }
+
+        .featured-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+        }
+
+        .dishes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .dish-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .dish-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .dish-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .dish-content {
+            padding: 1.5rem;
+        }
+
+        .dish-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .dish-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .dish-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background: #ffe6e6;
+            color: #FF4757;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .dish-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .add-btn {
+            background: #FF4757;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .add-btn:hover {
+            background: #e63946;
+            transform: scale(1.05);
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .header {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    
+    <header class="header">
+        <div class="logo">NOME DO DELIVERY</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="cardapio.html">Cardápio</a></li>
+                <li><a href="pedidos.html">Pedidos</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+            </svg>
+            <svg class="favorites-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <svg class="cart-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.42 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+            </svg>
+            <svg class="profile-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
+            </svg>
+        </div>
+    </header>
+
+
+    <section class="hero">
+        <h1>Sabor que chega até você</h1>
+        <p>Os melhores pratos da cidade entregues com rapidez e qualidade incomparáveis</p>
+        <div class="hero-actions">
+            <button class="btn-primary" onclick="showMenu()">Ver cardápio</button>
+            <div class="delivery-info">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
+                </svg>
+                Entrega em 30min
+            </div>
+        </div>
+    </section>
+
+
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">⏰</div>
+                    <h3>Entrega Rápida</h3>
+                    <p>Seus pratos favoritos chegam em até 30 minutos</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Qualidade Premium</h3>
+                    <p>Ingredientes frescos e receitas exclusivas</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🚚</div>
+                    <h3>Acompanhe Pedido</h3>
+                    <p>Saiba exatamente onde está seu pedido</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Categorias</h2>
+            <div class="categories-grid" id="categoriesGrid">
+                <div class="category-card" onclick="filterByCategory('pizza')">
+                    <div class="category-icon">🍕</div>
+                    <h3>Pizzas</h3>
+                </div>
+                <div class="category-card" onclick="filterByCategory('burger')">
+                    <div class="category-icon">🍔</div>
+                    <h3>Burgers</h3>
+                </div>
+                <div class="category-card" onclick="filterByCategory('japanese')">
+                    <div class="category-icon">🍱</div>
+                    <h3>Japonês</h3>
+                </div>
+                <div class="category-card" onclick="filterByCategory('drinks')">
+                    <div class="category-icon">☕</div>
+                    <h3>Bebidas</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  
+    <section class="featured-dishes">
+        <div class="container">
+            <h2 class="section-title">Pratos em Destaque</h2>
+            <p class="featured-subtitle">Os mais pedidos pelos nossos clientes</p>
+            <div id="loadingDishes" class="loading">
+                <div class="loading-spinner"></div>
+                <p>Carregando pratos deliciosos...</p>
+            </div>
+            <div class="dishes-grid" id="dishesGrid" style="display: none;">
+                
+            </div>
+        </div>
+    </section>
+
+    <script>
+        
+        const mockRestaurants = [
+            {
+                id: 1,
+                name: "Pizzaria Suprema",
+                category: "italiana",
+                rating: 4.8,
+                delivery_time: "25-35 min",
+                delivery_fee: 4.99
+            },
+            {
+                id: 2,
+                name: "Burger Classic",
+                category: "hamburger",
+                rating: 4.6,
+                delivery_time: "20-30 min",
+                delivery_fee: 3.99
+            },
+            {
+                id: 3,
+                name: "Sushi Master",
+                category: "japonesa",
+                rating: 4.9,
+                delivery_time: "30-40 min",
+                delivery_fee: 5.99
+            }
+        ];
+
+        const mockFoods = [
+            {
+                id: 1,
+                name: "Pizza Margherita Suprema",
+                description: "Molho de tomate artesanal, mussarela premium, manjericão fresco e azeite extravirgem",
+                price: 45.90,
+                category: "pizza",
+                restaurant_id: 1,
+                image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400",
+                tags: ["Mussarela", "Manjericão", "Molho de tomate"]
+            },
+            {
+                id: 2,
+                name: "Burger Classic Deluxe",
+                description: "Hambúrguer artesanal 180g, queijo cheddar, alface, tomate, cebola caramelizada e molho especial",
+                price: 45.90,
+                category: "burger",
+                restaurant_id: 2,
+                image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400",
+                tags: ["Carne 180g", "Cheddar", "Alface"]
+            },
+            {
+                id: 3,
+                name: "Café Expresso Premium",
+                description: "Café expresso, com grãos da Itália, pitadas de canela, leite cremoso e essência de baunilha",
+                price: 45.90,
+                category: "bebida",
+                restaurant_id: 3,
+                image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400",
+                tags: ["Canela", "Leite cremoso", "Grãos Italianos"]
+            }
+        ];
+
+        
+        async function loadFoods() {
+            try {
+                
+                const foods = mockFoods;
+
+                displayFoods(foods);
+                document.getElementById('loadingDishes').style.display = 'none';
+                document.getElementById('dishesGrid').style.display = 'grid';
+            } catch (error) {
+                console.error('Erro ao carregar pratos:', error);
+                // Fallback para dados mock
+                displayFoods(mockFoods);
+                document.getElementById('loadingDishes').style.display = 'none';
+                document.getElementById('dishesGrid').style.display = 'grid';
+            }
+        }
+
+    
+        function displayFoods(foods) {
+            const dishesGrid = document.getElementById('dishesGrid');
+            dishesGrid.innerHTML = '';
+
+            foods.forEach(food => {
+                const dishCard = document.createElement('div');
+                dishCard.className = 'dish-card';
+                dishCard.innerHTML = `
+                    <div class="dish-image" style="background-image: url('${food.image}')"></div>
+                    <div class="dish-content">
+                        <h3 class="dish-title">${food.name}</h3>
+                        <p class="dish-description">${food.description}</p>
+                        <div class="dish-tags">
+                            ${food.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                        <div class="dish-footer">
+                            <span class="price">R$ ${food.price.toFixed(2)}</span>
+                            <button class="add-btn" onclick="addToCart(${food.id})">+ Adicionar</button>
+                        </div>
+                    </div>
+                `;
+                dishesGrid.appendChild(dishCard);
+            });
+        }
+
+        function filterByCategory(category) {
+            const filteredFoods = mockFoods.filter(food =>
+                food.category.toLowerCase().includes(category.toLowerCase())
+            );
+            displayFoods(filteredFoods);
+        }
+
+
+        function addToCart(foodId) {
+            const food = mockFoods.find(f => f.id === foodId);
+            if (food) {
+   
+                alert(`${food.name} adicionado ao carrinho!`);
+                console.log('Adicionado ao carrinho:', food);
+            }
+        }
+
+       
+        function showMenu() {
+            document.querySelector('.featured-dishes').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            loadFoods();
+        });
+
+        async function loadApiData() {
+            const endpoints = [
+                'https://apifakedelivery.vercel.app/users',
+                'https://apifakedelivery.vercel.app/restaurants',
+                'https://apifakedelivery.vercel.app/foods'
+            ];
+
+            try {
+                const promises = endpoints.map(endpoint => fetch(endpoint));
+                const responses = await Promise.all(promises);
+                const data = await Promise.all(responses.map(r => r.json()));
+
+                console.log('Users:', data[0]);
+                console.log('Restaurants:', data[1]);
+                console.log('Foods:', data[2]);
+
+                return {
+                    users: data[0],
+                    restaurants: data[1],
+                    foods: data[2]
+                };
+            } catch (error) {
+                console.error('Erro ao carregar dados da API:', error);
+                return null;
+            }
+        }
+    </script>
+</body>
+
+</html>
