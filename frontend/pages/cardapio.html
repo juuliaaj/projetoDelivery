@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cardápio</title>
+  <title>Cardápio - Dolce Gusto</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -82,6 +82,11 @@
       margin-bottom: 0.3rem;
     }
 
+    .subtitle {
+      color: #5c5c5c;
+      margin-bottom: 2rem;
+    }
+
     .filters {
       display: flex;
       flex-wrap: wrap;
@@ -101,11 +106,11 @@
 
     .filters select {
       appearance: none;
-      background-image: url("/frontend/img/setaBaixo.png");
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
       background-size: 20px 20px;
       background-repeat: no-repeat;
-      background-position: right center;
-      background-position-x: 150px;
+      background-position: right 0.5rem center;
+      padding-right: 2.5rem;
     }
 
     .todos {
@@ -139,6 +144,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
+      min-height: 200px;
     }
 
     .card {
@@ -148,6 +154,12 @@
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     }
 
     .card img {
@@ -173,6 +185,7 @@
       font-size: 0.9rem;
       color: #669;
       flex-grow: 1;
+      line-height: 1.4;
     }
 
     .tags {
@@ -217,20 +230,26 @@
 
     .add-btn:hover {
       background: #e63946;
+      transform: scale(1.05);
     }
 
-  
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
     @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2rem;
-      }
-
-      .hero p {
-        font-size: 1rem;
-      }
-
-      .hero-actions {
+      .filters {
         flex-direction: column;
+      }
+      
+      .filters input,
+      .filters select {
+        width: 100%;
       }
 
       .header {
@@ -240,41 +259,45 @@
       .nav-links {
         display: none;
       }
+      
+      .category-buttons {
+        justify-content: center;
+      }
     }
   </style>
 </head>
 
 <body>
-
   <header class="header">
-    <div class="logo">NOME DO DELIVERY</div>
+    <div class="logo">DOLCE GUSTO</div>
     <nav>
-      <ul class="nav-links">
-        <li><a href="index.html">Início</a></li>
-        <li><a href="cardapio.html">Cardápio</a></li>
-        <li><a href="pedidos.html">Pedidos</a></li>
-      </ul>
+        <ul class="nav-links">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="cardapio.html">Cardápio</a></li>
+            <li><a href="pedidos.html">Pedidos</a></li>
+        </ul>
     </nav>
     <div class="header-actions">
-      <svg class="search-icon" viewBox="0 0 24 24" fill="currentColor">
-        <path
-          d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
-      </svg>
-      <svg class="favorites-icon" viewBox="0 0 24 24" fill="currentColor">
-        <path
-          d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-      </svg>
-      <svg class="cart-icon" viewBox="0 0 24 24" fill="currentColor">
-        <path
-          d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.42 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-      </svg>
-      <svg class="profile-icon" viewBox="0 0 24 24" fill="currentColor">
-        <path
-          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
-      </svg>
+        <svg class="search-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+                d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+        </svg>
+        <svg class="favorites-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+        <svg class="cart-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+                d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.42 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+        </svg>
+        <a href="usuarios.html" style="color: inherit;">
+            <svg class="profile-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
+            </svg>
+        </a>
     </div>
   </header>
-
 
   <div class="container">
     <h1>Cardápio</h1>
@@ -282,83 +305,22 @@
 
     <div class="filters">
       <input type="text" placeholder="Buscar comidas, restaurantes…" />
-      <select class="todos">
-        <option value="todos">Todas as opções</option>
-        <option value="pizza">Pizzas</option>
-        <option value="burger">Burgers</option>
-        <option value="japones">Japonês</option>
-      </select>
       <select>
+        <option value="">Ordenar por</option>
         <option value="nome">Ordenar por nome</option>
         <option value="preco">Ordenar por preço</option>
       </select>
     </div>
 
-    <div class="category-buttons">
-      <button class="active">Todos</button>
-      <button>Pizzas</button>
-      <button>Burgers</button>
-      <button>Japonês</button>
-      <button>Bebidas</button>
-      <button>Sobremesas</button>
-    </div>
-
-    <div class="card-grid">
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400" alt="Pizza">
-        <div class="card-content">
-          <div class="card-title">Pizza Margherita Suprema</div>
-          <div class="card-desc">Molho de tomate artesanal, mussarela premium, manjericão fresco e azeite extravirgem
-          </div>
-          <div class="tags">
-            <span class="tag">Mussarela</span>
-            <span class="tag">Manjericão</span>
-            <span class="tag">Molho de tomate</span>
-          </div>
-          <div class="price-add">
-            <div class="price">R$ 45.90</div>
-            <button class="add-btn">+ Adicionar</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" alt="Burger">
-        <div class="card-content">
-          <div class="card-title">Burger Classic Deluxe</div>
-          <div class="card-desc">Hambúrguer artesanal 180g, queijo cheddar, alface, tomate, cebola caramelizada e molho
-            especial</div>
-          <div class="tags">
-            <span class="tag">Carne 180g</span>
-            <span class="tag">Cheddar</span>
-            <span class="tag">Alface</span>
-          </div>
-          <div class="price-add">
-            <div class="price">R$ 45.90</div>
-            <button class="add-btn">+ Adicionar</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400" alt="Café">
-        <div class="card-content">
-          <div class="card-title">Café Expresso Premium</div>
-          <div class="card-desc">Café expresso, com grãos da Itália, pitadas de canela, leite cremoso e essência de
-            baunilha</div>
-          <div class="tags">
-            <span class="tag">Canela</span>
-            <span class="tag">Leite cremoso</span>
-            <span class="tag">Grãos Italianos</span>
-          </div>
-          <div class="price-add">
-            <div class="price">R$ 45.90</div>
-            <button class="add-btn">+ Adicionar</button>
-          </div>
-        </div>
+    <div class="card-grid" id="cardGrid">
+      <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+        <div style="border: 4px solid #f3f3f3; border-top: 4px solid #FF4757; border-radius: 50%; width: 40px; height: 40px; animation: spin 2s linear infinite; margin: 0 auto;"></div>
+        <p style="margin-top: 1rem; color: #5c5c5c;">Carregando cardápio...</p>
       </div>
     </div>
   </div>
+
+  <script src="api.js"></script>
 </body>
 
 </html>
